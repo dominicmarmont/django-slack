@@ -29,7 +29,7 @@ def slack_message(template, context=None, fail_silently=app_settings.FAIL_SILENT
     }
 
     # Filter actually defined values
-    data = {k: v for k, v in data.iteritems() if v}
+    data = {k: v for k, v in data.items() if v}
 
     # Render template
     for part in ('token', 'channel', 'text', 'icon_url', 'icon_emoji', 'username'):
@@ -55,6 +55,8 @@ def slack_message(template, context=None, fail_silently=app_settings.FAIL_SILENT
 
     try:
         backend.send('https://slack.com/api/chat.postMessage', data)
+        import pprint
+        pprint.pprint(data)
     except Exception:
         if not fail_silently:
             raise
